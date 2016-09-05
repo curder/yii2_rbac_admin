@@ -15,9 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Goods', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+    use mdm\admin\components\Helper;
+
+    //没有创建权限不显示按钮
+    if (Helper::checkRoute('create')) {
+        echo Html::a('Create Goods', ['create'], ['class' => 'btn btn-success']);
+    } ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -31,7 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => Helper::filterActionColumn('{view}{update}{delete}'),
+            ],
         ],
     ]); ?>
 </div>

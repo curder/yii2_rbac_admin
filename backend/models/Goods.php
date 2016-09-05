@@ -45,11 +45,11 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'goods_name' => 'Goods Name',
-            'goods_number' => 'Goods Number',
-            'goods_desc' => 'Goods Desc',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'goods_name' => '商品名称',
+            'goods_number' => '商品库存',
+            'goods_desc' => '商品描述',
+            'created_at' => '创建时间',
+            'updated_at' => '修改时间',
         ];
     }
 }
