@@ -55,7 +55,13 @@ return [
                 "<controller:\w+>/<action:\w+>" => "<controller>/<action>"
             ],
         ],
-
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-black',
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     'as access' => [
