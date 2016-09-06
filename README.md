@@ -221,7 +221,7 @@ UNLOCK TABLES;
 ```
 
 ### 测试地址
-[http://yii.webfsd.com/site/login](http://yii.webfsd.com/site/login)
+[http://yii.webfsd.com/site/login.html](http://yii.webfsd.com/site/login.html)
 
 ### 管理员用户
 - 用户名 admin
