@@ -1,18 +1,23 @@
 ## Yii2.0 Rbac 示例
 
+[toc]
+
 ### 说明
-- 这只是一个基于Yii2.0.9 和 依赖 [mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin) 的RBAC的简单示例，为了界面的美观还使用了 [dmstr/yii2-adminlte-asset](https://github.com/dmstr/yii2-adminlte-asset) ,可以很方便的扩展一下应用到实际项目中。
+- 这只是一个基于[Yii2.0.9](https://github.com/yiisoft/yii) 和 依赖 [mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin) 的RBAC的简单示例，为了界面的美观还使用了 [dmstr/yii2-adminlte-asset](https://github.com/dmstr/yii2-adminlte-asset) ,可以很方便的扩展一下应用到实际项目中。
 
 ### 安装
 0. 安装前端依赖 `composer global require "fxp/composer-asset-plugin:^1.2.0"`
 
 1. clone代码到本地, 地址:`git clone git@github.com:curder/yii2_rbac_admin.git`
 
-2. 保证系统安装了[composer](https://getcomposer.org/download/),来到clone的目录使用`composer install`下载相关依赖。
+2. 保证系统安装了[composer](https://getcomposer.org/download/),来到clone的目录（默认为**yii2_rbac_admin**）使用`composer install`下载相关依赖，并执行`composer update`。
 
 3. 修改数据库连接信息
+	
 	- 数据库建库语句 `create database yii2advanced charset utf8;`
-	- 数据库授权语句 `grant all on yii2advaced.* to yii2advanced@localhost identified by 'yii2advanced_password';`
+	
+	- 数据库授权语句 `grant all on yii2advanced.* to yii2advanced@localhost identified by 'yii2advanced_password';`
+	
    - 修改配置文件`<project>/common/config/main-local.php`的数据库连接
 	
 	```
@@ -26,9 +31,11 @@
 	```
 
 4. 执行迁移(在项目根目录下)
-	```shell
+
+	```
 	php yii migrate --migrationPath=@mdm/admin/migrations
 	php yii migrate --migrationPath=@yii/rbac/migrations
+	php yii migrate
 	```
 
 
@@ -44,7 +51,7 @@
 	    listen 81;
 	
 	    server_name 192.168.207.128;
-	    root        /usr/local/nginx/html/yii2/yii2_rbac_admin/backend/web;
+	    root        /var/www/html/yii2/yii2_rbac_admin/backend/web;
 	    index       index.php;
 	
 	    access_log  logs/backend_access.log;
@@ -81,7 +88,7 @@
 7. 登录后台访问`/admin/menu/create`
 
 
-### URLs
+### 更多操作URLs
 登录： `/site/login`
 
 角色列表：`/admin/role/index`
@@ -99,18 +106,10 @@
 菜单列表：`/admin/menu/index`
 
 
-默认SQL
+### 系统默认
+　　默认**test**为一般用户，**admin**为管理员，管理员拥有最高权限，一般用户拥有对数据的查看和列表的预览，没有对数据增删改的权限，具体的SQL如下：
 
 ```sql
-DROP TABLE IF EXISTS `auth_assignment`;
-
-LOCK TABLES `auth_assignment` WRITE;
-INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`)
-VALUES
-    ('一般用户','2',1473145480),
-    ('管理员','1',1473145464);
-
-UNLOCK TABLES;
 
 LOCK TABLES `auth_item` WRITE;
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`)
@@ -173,17 +172,6 @@ VALUES
 UNLOCK TABLES;
 
 
-DROP TABLE IF EXISTS `auth_item_child`;
-
-CREATE TABLE `auth_item_child` (
-  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`),
-  CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 LOCK TABLES `auth_item_child` WRITE;
 
 INSERT INTO `auth_item_child` (`parent`, `child`)
@@ -208,33 +196,13 @@ VALUES
     ('未登录用户','/site/logout');
 
 UNLOCK TABLES;
+LOCK TABLES `auth_assignment` WRITE;
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`)
+VALUES
+    ('一般用户','2',1473145480),
+    ('管理员','1',1473145464);
 
-
-DROP TABLE IF EXISTS `auth_rule`;
-
-CREATE TABLE `auth_rule` (
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `data` text COLLATE utf8_unicode_ci,
-  `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
-DROP TABLE IF EXISTS `menu`;
-
-CREATE TABLE `menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `parent` int(11) DEFAULT NULL,
-  `route` varchar(255) DEFAULT NULL,
-  `order` int(11) DEFAULT NULL,
-  `data` blob,
-  PRIMARY KEY (`id`),
-  KEY `parent` (`parent`),
-  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+UNLOCK TABLES;
 
 LOCK TABLES `menu` WRITE;
 
@@ -251,6 +219,20 @@ VALUES
 
 UNLOCK TABLES;
 ```
+
+### 测试地址
+[http://yii.webfsd.com/site/login](http://yii.webfsd.com/site/login)
+
+### 管理员用户
+- 用户名 admin
+- 密码 admin123
+
+### 一般用户
+- 用户名 test
+- 密码 test123
+
+
+### 感谢开源
 
 
 

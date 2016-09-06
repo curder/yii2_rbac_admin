@@ -44,14 +44,17 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // 使用数据库管理配置文件
-            'defaultRoles'=>['未登录用户'],
+            'defaultRoles' => ['未登录用户'],
         ],
-       /* 'urlManager' => [
+        'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'suffix' => '.html',
             'rules' => [
+                "<controller:\w+>/<id:\d+>" => "<controller>/view",
+                "<controller:\w+>/<action:\w+>" => "<controller>/<action>"
             ],
-        ],*/
+        ],
 
     ],
     'params' => $params,
