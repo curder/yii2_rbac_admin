@@ -74,7 +74,9 @@
 	```
 
 6. 访问后台
-访问后台，地址`http://backenddomain.com/index.php?r=site%2Flogin`查看效果。
+访问后台，地址`http://192.168.207.128:81/index.php?r=site%2Flogin`查看效果。
+
+7. 登录后台访问`/admin/menu/create`
 
 
 ### URLs
@@ -93,7 +95,6 @@
 规则列表: `/admin/rule/index`
 
 菜单列表：`/admin/menu/index`
-
 
 
 
