@@ -8,16 +8,19 @@ class m130524_201442_init extends Migration
     public function safeUp()
     {
         // add user
-        $user = new User;
-        $user->username = 'admin';
-        $user->password_hash = 'admin123';
-        $user->email = 'admin@admin.com';
-        $user->save();
+        $admin = new User;
+        $admin->username = 'admin';
+        $admin->setPassword('admin123');
+        $admin->generateAuthKey();
+        $admin->email = 'admin@admin.com';
+        $admin->save();
 
-        $user->username = 'test';
-        $user->password_hash = 'test123';
-        $user->email = 'test@admin.com';
-        $user->save();
+        $test = new User;
+        $test->username = 'test';
+        $test->setPassword('test123');
+        $test->generateAuthKey();
+        $test->email = 'test@admin.com';
+        $test->save();
 
 
     }

@@ -77,7 +77,22 @@
 访问后台，地址`http://backenddomain.com/index.php?r=site%2Flogin`查看效果。
 
 
+### URLs
+登录： `/site/login`
 
+角色列表：`/admin/role/index`
+
+用户列表：`/admin/user/index`
+
+分配用户到角色： `/admin/assignment/index`
+
+权限列表：`/admin/permission/index`
+
+路由列表：`/admin/route/index`
+
+规则列表: `/admin/rule/index`
+
+菜单列表：`/admin/menu/index`
 
 
 
