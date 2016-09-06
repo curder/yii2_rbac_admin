@@ -177,6 +177,7 @@ LOCK TABLES `auth_item_child` WRITE;
 INSERT INTO `auth_item_child` (`parent`, `child`)
 VALUES
     ('管理员','/*'),
+    ('管理员','/admin/*'),
     ('一般用户','/admin/assignment/index'),
     ('一般用户','/admin/assignment/view'),
     ('一般用户','/admin/default/index'),
