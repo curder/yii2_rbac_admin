@@ -20,6 +20,10 @@ return [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // 使用数据库管理配置文件
+            'defaultRoles'=>['未登录用户'],
+        ],
     ],
     'params' => $params,
 ];

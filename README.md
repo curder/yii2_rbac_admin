@@ -1,54 +1,25 @@
-Yii 2 Advanced Project Template
-===============================
+## Yii2.0 Rbac 示例
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+### 说明
+- 这只是一个基于Yii2.0.9 和 依赖[mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin) 的RBAC的简单示例，为了界面的美观还使用了[dmstr/yii2-adminlte-asset](https://github.com/dmstr/yii2-adminlte-asset),可以很方便的扩展一下应用到实际项目中。
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+### 安装
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+1. clone代码到本地, 地址:`git clone git@github.com:curder/yii2_rbac_admin.git`
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+2. 保证系统安装了[composer](https://getcomposer.org/download/),来到clone的目录使用`composer install`下载相关依赖。
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-advanced/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-advanced/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-advanced.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-advanced)
+3. 修改配置文件`<project>/common/config/main.php`的数据库连接
 
-DIRECTORY STRUCTURE
--------------------
-
+4. 执行迁移(在项目根目录下)
+```shell
+php yii migrate --migrationPath=@mdm/admin/migrations
+php yii migrate --migrationPath=@yii/rbac/migrations
 ```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-tests                    contains various tests for the advanced application
-    codeception/         contains tests developed with Codeception PHP Testing Framework
-```
+
+
+
+
+
+
+
